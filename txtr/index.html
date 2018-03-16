@@ -37,7 +37,13 @@
 				var height = $(window).height();
 				var amount = height * 0.95;
 				var pl = direction === 'up' ? -1 : 1;
-				$(window).scrollTop(top + amount * pl);
+				var decHeight = $(document).height();
+				var newTop = top + amount * pl;
+				$(window).scrollTop(newTop);
+				$('#progress').html(Math.floor(newTop / decHeight * 100) + '%').show();
+				setTimeout(function() {
+					$('#progress').hide();
+				}, 500);
 			}
 
 			function convertText(str) {
@@ -50,6 +56,14 @@
 					.replace(/\r\s?/g, '')
 					'</p>';
 			}
+			$(document).on('keyup', function(e){
+				console.log("e.keyCode", e.keyCode);
+				if (e.keyCode === 40) {
+					move('down');
+				} else if (e.keyCode === 38) {
+					move('up');
+				}
+			})
 		</script>
 	</head>
 
@@ -64,6 +78,7 @@
 			<input type="file" onchange="readText(this)" />
 			<div id="btn-up" onclick="move('up')"></div>
 			<div id="btn-down" onclick="move('down')"></div>
+			<div id="progress">20%</div>
 		</div>
 	</body>
 </html>
