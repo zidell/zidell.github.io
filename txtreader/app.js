@@ -16,6 +16,7 @@ function readText(e){
 	if(filePath.files && filePath.files[0]) {           
     	var reader = new FileReader();
 	    reader.onload = function (e) {
+	    	$(window).scrollTop(0);
 	        store.text = reader.result;
 	    };//end onload()
 	    reader.readAsText(filePath.files[0]);
@@ -46,6 +47,7 @@ const TxtReader = observer(
 		constructor(props){
 			super(props);
 		}
+
 		render() {
 			console.log("RENDER");
 			const {
@@ -54,7 +56,12 @@ const TxtReader = observer(
 			return (
 				<div>
 					<input type="file" onChange={readText} />
+					<br/>
+					<br/>
 					<div dangerouslySetInnerHTML={{__html: convertText(text + text)}} />
+					<br/>
+					<br/>
+					<input type="file" onChange={readText} />
 					<div id="btn-up" onClick={move.bind(null, 'up')} />
 					<div id="btn-down" onClick={move.bind(null, 'down')} />
 				</div>
