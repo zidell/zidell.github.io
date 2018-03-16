@@ -16,16 +16,54 @@
 
 		
 		<!-- 필요한 라이브러리만 주석해제하시면 됩니다. -->
+	    <link rel="stylesheet" type="text/css" href="./app.css?a=2">
 		<script src="./jquery.min.js"></script>
-		<script src="./babel.min.js"></script>
-		<script src="./standalone-react-bundle.min.js"></script>
-	    <link rel="stylesheet" type="text/css" href="./app.css?a=1">
+		<script>
+			function readText(filePath){
+				var output = ""; //placeholder for text output
+				if(filePath.files && filePath.files[0]) {           
+			    	var reader = new FileReader();
+				    reader.onload = function (e) {
+				    	$(window).scrollTop(0);
+				        $('#content').html(convertText(reader.result));
+				    };//end onload()
+				    reader.readAsText(filePath.files[0]);
+				}//end if html5 filelist support
+				return true;
+			}
+
+			function move(direction) {
+				var top = $(window).scrollTop();
+				var height = $(window).height();
+				var amount = height * 0.95;
+				var pl = direction === 'up' ? -1 : 1;
+				$(window).scrollTop(top + amount * pl);
+			}
+
+			function convertText(str) {
+				return '<p>'+ str
+					.toString()
+					.replace(/[\r]{2,}/g, '</p><br /><p>')
+					.replace(/(\.|"|\)|\])[\r]/g, function(match, contents){
+						return match + '</p><p>';
+					})
+					.replace(/\r\s?/g, '')
+					'</p>';
+			}
+		</script>
 	</head>
 
 	<body>
-		<div id="root"></div>
-
-
-		<script type="text/babel" src="./app.js?a=1"></script>
+		<div id="root">
+			<input type="file" onchange="readText(this)" />
+			<br/>
+			<br/>
+			<div id="content"></div>
+			<br/>
+			<br/>
+			<input type="file" onchange="readText(this)" />
+			<div id="btn-up" onclick="move('up')"></div>
+			<div id="btn-down" onclick="move('down')"></div>
+		</div>
 	</body>
 </html>
