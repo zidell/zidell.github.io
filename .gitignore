@@ -1,0 +1,5 @@
+**/.DS_Store
+.history
+.env
+node_modules
+vendor
