@@ -128,13 +128,12 @@
 					.trim()
 					.split('\n');
 				var $body = $('body');
-				rows.forEach(row => {
-					$body.append(getContentByType(row.trim()));
-				});
+				for (var i in rows) {
+					$body.append(getContentByType(rows[i].trim()));
+				}
 			});
 		</script>
 	</head>
 
-	<body>
-	</body>
+	<body></body>
 </html>
