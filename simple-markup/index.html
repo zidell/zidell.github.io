@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="">
+	<head>
+		<!-- 제목은 여기에서 수정 -->
+		<title>Title Here</title>
+
+		<script>
+			// 추적코드가 있다면 삽입
+		</script>
+
+		<!--
+			출력하고자하는 데이터는 아래 예시처럼 한 줄에 하나씩 넣으면 됩니다.
+			- 이미지는 이미지 주소 혹은 경로만..
+			- 링크는 이미지 주소 뒤에 |를 쓰고 이동할 주소를..
+			- 유투브는 브라우저 링크주소를..
+		-->
+		<script id="data" type="text/x-template">
+			http://via.placeholder.com/800x1600
+			http://via.placeholder.com/800x70|https://google.com
+			https://www.youtube.com/watch?v=SZIwfrlMdn8&t=4s
+			http://via.placeholder.com/800x1600
+		</script>
+
+		<!-- 여기서부터 아래 부분은 건드릴 필요가 없음-->
+		<!-- . -->
+		<!-- . -->
+		<!-- . -->
+		<!-- . -->
+		<!-- . -->
+		<!-- . -->
+		<!-- . -->
+		<!-- . -->
+		<!-- . -->
+		<!-- . -->
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<style>
+			html {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				padding: 0;
+				margin: 0 auto;
+				max-width: 600px;
+			}
+			img,
+			a {
+				display: block;
+				margin: 0 auto;
+				width: 100%;
+			}
+			.videoWrapper {
+				margin: 0 auto;
+				position: relative;
+				padding-bottom: 56.25%; /* 16:9 */
+				height: 0;
+			}
+			.videoWrapper iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+		<script>
+			$(function() {
+				// http://web.archive.org/web/20160926134334/http://lasnv.net/foro/839/Javascript_parsear_URL_de_YouTube
+				function youtube_parser(url) {
+					var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+					var match = url.match(regExp);
+					return match && match[7].length == 11 ? match[7] : false;
+				}
+				var tagImage = function(row) {
+					return '<img src="' + row + '" />';
+				};
+				var tagAnchor = function(row) {
+					var splited = row.split('|');
+					return (
+						'<a href="' +
+						splited[1].trim() +
+						'" target="_blank">' +
+						tagImage(splited[0].trim()) +
+						'</a>'
+					);
+				};
+				var tagYoutube = function(row) {
+					return [
+						'<div class="videoWrapper">',
+						'<iframe',
+						' width="560"',
+						' height="315"',
+						' src="https://www.youtube.com/embed/' +
+							youtube_parser(row) +
+							'"',
+						' frameborder="0"',
+						' allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"',
+						' allowfullscreen',
+						'></iframe>',
+						'</div>',
+					].join('');
+				};
+				var getType = function(row) {
+					if (row.includes('youtube.com')) {
+						return 'youtube';
+					}
+					if (row.includes('|')) {
+						return 'link';
+					}
+					return 'image';
+				};
+				var getContentByType = function(row) {
+					var type = getType(row.toLowerCase());
+					switch (type) {
+						case 'youtube':
+							return tagYoutube(row);
+						case 'link':
+							return tagAnchor(row);
+						default:
+							return tagImage(row);
+					}
+				};
+				var rows = $('#data')
+					.text()
+					.trim()
+					.split('\n');
+				var $body = $('body');
+				rows.forEach(row => {
+					$body.append(getContentByType(row.trim()));
+				});
+			});
+		</script>
+	</body>
+</html>
