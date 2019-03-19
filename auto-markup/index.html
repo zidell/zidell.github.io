@@ -4,10 +4,6 @@
 		<!-- 제목은 여기에서 수정 -->
 		<title>Title Here</title>
 
-		<script>
-			// 추적코드가 있다면 삽입
-		</script>
-
 		<!--
 			출력하고자하는 데이터는 아래 예시처럼 한 줄에 하나씩 넣으면 됩니다.
 			- 이미지는 이미지 주소 혹은 경로만..
@@ -19,6 +15,10 @@
 			http://via.placeholder.com/800x70 | https://google.com
 			https://www.youtube.com/watch?v=SZIwfrlMdn8&t=4s
 			http://via.placeholder.com/800x1600
+		</script>
+
+		<script>
+			// 추적코드가 있다면 삽입
 		</script>
 
 		<!-- 여기서부터 아래 부분은 건드릴 필요가 없음-->
@@ -104,10 +104,10 @@
 					].join('');
 				};
 				var getType = function(row) {
-					if (row.includes('youtube.com')) {
+					if (row.indexOf('youtube.com') > -1) {
 						return 'youtube';
 					}
-					if (row.includes('|')) {
+					if (row.indexOf('|') > -1) {
 						return 'link';
 					}
 					return 'image';
