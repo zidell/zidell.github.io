@@ -26,7 +26,7 @@ class Source extends Component {
 				<div>
 					<p>아래의 방법으로 한 줄씩 입력</p>
 					<span>이미지주소 | 설명</span>
-					<span>이미지주소 | 설명 | 링크타겟</span>
+					<span>이미지주소 | 설명 | 링크주소</span>
 					<span>유투브주소</span>
 				</div>
 			</Block>

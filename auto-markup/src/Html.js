@@ -4,6 +4,7 @@ import Block from './Block';
 import $ from 'jquery';
 import autoBind from 'auto-bind';
 import { observer } from 'mobx-react';
+import { saveAs } from 'file-saver';
 
 class Html extends Component {
 	constructor(props) {
@@ -11,12 +12,19 @@ class Html extends Component {
 		autoBind(this);
 	}
 
+	download() {
+		var blob = new Blob([this.props.html], {
+			type: 'text/plain;charset=utf-8',
+		});
+		saveAs(blob, 'index.html');
+	}
+
 	selectAll() {
 		$(this.textarea).select();
 	}
 
 	render() {
-		const { selectAll } = this;
+		const { selectAll, download } = this;
 		const { html } = this.props;
 		return (
 			<Block className="Html">
@@ -32,6 +40,7 @@ class Html extends Component {
 					onFocus={selectAll}
 					onClick={selectAll}
 				/>
+				<button onClick={download}>Download</button>
 			</Block>
 		);
 	}
