@@ -2,6 +2,7 @@
 	"name": "auto-markup",
 	"version": "0.1.0",
 	"private": true,
+	"homepage": "./",
 	"dependencies": {
 		"auto-bind": "^2.0.0",
 		"jquery": "^3.3.1",
