@@ -150,7 +150,11 @@ const actions = {
 		) {
 			var url = tmp[1].indexOf('http') === 0 ? tmp[1] : tmp[2];
 			var alt = tmp[1].indexOf('http') === 0 ? tmp[2] : tmp[1];
-			return actions.tagAnchor(tmp[0], url, alt.replace(/["']/g, ''));
+			return actions.tagAnchor(
+				tmp[0],
+				url,
+				alt.replace(/["']/g, '&quot;')
+			);
 		}
 		return actions.tagImage(tmp[0], tmp[1]);
 	},
