@@ -97,17 +97,13 @@ const actions = {
 	},
 
 	tagImage: (imageUrl, alt) => {
-		return (
-			'<img src="' +
-			imageUrl +
-			'" alt="' +
-			alt.replace(/["']/g, '') +
-			'"/>'
-		);
+		return '<img src="' + imageUrl + '" alt="' + alt + '"/>';
 	},
 	tagAnchor: (imageUrl, url, alt) => {
 		return (
-			'<a href="' +
+			'<a title="' +
+			alt +
+			'" href="' +
 			url +
 			'" target="_blank">' +
 			actions.tagImage(imageUrl, alt) +
@@ -154,7 +150,7 @@ const actions = {
 		) {
 			var url = tmp[1].indexOf('http') === 0 ? tmp[1] : tmp[2];
 			var alt = tmp[1].indexOf('http') === 0 ? tmp[2] : tmp[1];
-			return actions.tagAnchor(tmp[0], url, alt);
+			return actions.tagAnchor(tmp[0], url, alt.replace(/["']/g, ''));
 		}
 		return actions.tagImage(tmp[0], tmp[1]);
 	},
