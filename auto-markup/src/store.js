@@ -3,7 +3,7 @@ const defaultExample = `http://via.placeholder.com/800x1200 | 이미지에 대�
 
 https://www.youtube.com/watch?v=SZIwfrlMdn8&t=4s
 
-http://via.placeholder.com/800x200 | https://google.com | 링크 이미지에 대한 설명2
+http://via.placeholder.com/800x200 | 링크 이미지에 대한 설명2 | https://google.com
 `;
 
 const store = observable({
