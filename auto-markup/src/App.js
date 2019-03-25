@@ -22,8 +22,8 @@ class App extends Component {
 					changeTitle={changeTitle}
 					changeData={changeData}
 				/>
-				<Preview html={html} />
 				<Html html={html} />
+				<Preview html={html} />
 			</div>
 		);
 	}
