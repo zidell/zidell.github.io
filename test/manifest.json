@@ -1,0 +1,11 @@
+{
+	"name": "test",
+	"short_name": "test",
+	"theme_color": "#4f535e",
+	"background_color": "#4f535e",
+	"display": "standalone",
+	"orientation": "portrait",
+	"Scope": "/",
+	"start_url": "/?utm=pwa",
+	"splash_pages": null
+}
